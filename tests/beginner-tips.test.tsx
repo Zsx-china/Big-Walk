@@ -142,6 +142,14 @@ it('keeps legacy guide IDs unique and preserves the final content-section sideba
   expect(document.querySelector(href!)).toHaveTextContent('Characters FAQ');
 });
 
+it('keeps complete Save sidebar targets raw and DOM ids unique', async () => {
+  const page = await getPage('en', 'save');
+  render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
+  for (const href of ['#overview', '#details', '#steps', '#faq', '#related', '#sources']) expect(document.querySelector(href)).not.toBeNull();
+  const ids = [...document.querySelectorAll('[id]')].map((element) => element.id).filter(Boolean);
+  expect(new Set(ids).size).toBe(ids.length);
+});
+
 it('keeps template-guide related and FAQ sidebar targets semantically distinct', async () => {
   const page = await getPage('en', 'about');
   render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
