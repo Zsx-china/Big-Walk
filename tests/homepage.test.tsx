@@ -19,6 +19,26 @@ async function renderEnglishHome() {
 }
 
 describe('English home page', () => {
+  it('uses the approved hero and accent theme roles', async () => {
+    await renderEnglishHome();
+
+    const hero = screen.getByRole('heading', { level: 1, name: 'Big Walk' }).closest('section');
+    expect(hero).toHaveClass('bg-ink');
+    expect(screen.getByText('Fan-Made Community Wiki')).toHaveClass('text-ember-light');
+    expect(screen.getByRole('link', { name: 'Start Beginner Guide' })).toHaveClass(
+      'border-ember-light',
+      'bg-ember-light',
+      'text-ink',
+    );
+
+    const firstGuide = screen.getByRole('link', { name: /^01 Beginner Guide/ });
+    expect(firstGuide).toHaveClass('border-ink', 'text-ink', 'shadow-[5px_5px_0_0_var(--color-ember)]');
+    expect(within(firstGuide).getByText('01')).toHaveClass('text-teal');
+
+    const finalCta = screen.getByRole('heading', { name: 'Ready to Master Big Walk?' }).closest('section');
+    expect(finalCta).toHaveClass('border-ink', 'bg-ember-light', 'shadow-[8px_8px_0_0_var(--color-ember)]');
+  });
+
   it('renders the approved hero, factual status cards, and guide routes', async () => {
     await renderEnglishHome();
 
