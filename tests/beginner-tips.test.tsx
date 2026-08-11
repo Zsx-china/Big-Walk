@@ -138,8 +138,8 @@ it('keeps legacy guide IDs unique and preserves the final content-section sideba
   expect(new Set(ids).size).toBe(ids.length);
   const faqLink = screen.getByRole('link', { name: 'Characters FAQ' });
   const href = faqLink.getAttribute('href');
-  expect(href).toBe('#characters-faq-list');
-  expect(document.querySelector(href!)).not.toBeNull();
+  expect(href).toBe('#characters-faq');
+  expect(document.querySelector(href!)).toHaveTextContent('Characters FAQ');
 });
 
 it('keeps template-guide related and FAQ sidebar targets semantically distinct', async () => {

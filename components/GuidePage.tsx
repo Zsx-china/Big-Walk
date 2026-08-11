@@ -29,11 +29,14 @@ function tocItem(page: PageDocument, pattern: RegExp) {
 export function GuidePage({ page }: { page: PageDocument }) {
   const t = useTranslations('GuidePage');
   const { locale, frontmatter } = page;
-  const stepsId = sectionId(page, 'step', 'steps');
-  const faqItem = faqTocItem(page);
+  const bodyH2Count = (page.content.match(/^##\s+/gm) ?? []).length;
+  const reservedToc = frontmatter.toc.slice(bodyH2Count);
+  const reservedItem = (pattern: RegExp) => reservedToc.find((item) => pattern.test(`${item.id} ${item.label}`));
+  const stepsItem = reservedItem(/step|paso/i);
+  const faqItem = reservedItem(/faq|preguntas-frecuentes/i);
+  const relatedItem = reservedItem(/related|relacion/i);
+  const stepsId = stepsItem?.id ?? sectionId(page, 'step', 'steps');
   const faqId = faqItem?.id ?? 'faq';
-  const stepsItem = tocItem(page, /step|paso/i);
-  const relatedItem = tocItem(page, /related|relacion/i);
   const navigationToc = frontmatter.toc.map((item) => {
     if (item.id === faqItem?.id) return { ...item, id: `${faqId}-list` };
     if (item.id === stepsItem?.id) return { ...item, id: `${stepsId}-guide` };
