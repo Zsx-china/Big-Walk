@@ -80,6 +80,9 @@ describe('English beginner tips guide', () => {
     const article = container.querySelector('article');
     expect(article).not.toBeNull();
     expect(article).toHaveTextContent('red button');
+    expect(screen.getByText('How do signal flares help a group?')).toBeInTheDocument();
+    expect(screen.getByText(/orange terminal plus a red button launches a flare high with a flash and loud sound/i)).toBeInTheDocument();
+    expect(article).not.toHaveTextContent('**');
     expectTocTargets('Practical tools', 'practical-tools', 'Practical tools', 'Beginner FAQ', 'beginner-faq-list');
     expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
@@ -125,6 +128,9 @@ describe('Spanish beginner tips guide', () => {
     const article = container.querySelector('article');
     expect(article).not.toBeNull();
     expect(article).toHaveTextContent('botón rojo');
+    expect(screen.getByText('¿Cómo ayudan las bengalas de señal al grupo?')).toBeInTheDocument();
+    expect(screen.getByText(/terminal naranja más un botón rojo lanza una bengala alta con destello y sonido fuerte/i)).toBeInTheDocument();
+    expect(article).not.toHaveTextContent('**');
     expectTocTargets('Herramientas prácticas', 'herramientas-practicas', 'Herramientas prácticas', 'Preguntas frecuentes para principiantes', 'preguntas-frecuentes-para-principiantes-list');
     expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
