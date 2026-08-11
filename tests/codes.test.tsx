@@ -40,7 +40,7 @@ describe('English codes guide', () => {
     expect(metadata).toMatchObject({ title, description });
   });
 
-  it('renders the English related guide link and pending label', async () => {
+  it('renders all English related guide links and pending save boundaries', async () => {
     const page = await getPage('en', 'codes');
 
     render(
@@ -50,9 +50,19 @@ describe('English codes guide', () => {
     );
 
     expect(screen.getByRole('link', { name: /Big Walk Game Guide/ })).toHaveAttribute('href', '/en/game');
+    expect(screen.getByRole('link', { name: /Big Walk Save Ownership Guide/ })).toHaveAttribute('href', '/en/save');
+    expect(screen.getByRole('link', { name: /Big Walk Beginner Tips/ })).toHaveAttribute('href', '/en/beginner-tips');
     const pendingLabels = screen.getAllByText('Pending confirmation:');
-    expect(pendingLabels).toHaveLength(7);
+    expect(pendingLabels).toHaveLength(9);
     for (const label of pendingLabels) expect(label.tagName).toBe('STRONG');
+
+    const progressSection = page.content.match(/## Progress and save data\n\n([\s\S]+?)\n\nRead more:/)?.[1] ?? '';
+    expect(progressSection).toContain('Join Codes carry no progress or save data');
+    expect(progressSection.match(/\*\*Pending confirmation:\*\*/g)).toHaveLength(3);
+    expect(progressSection).toMatch(/Pending confirmation:\*\*[^.]*ownership/i);
+    expect(progressSection).toMatch(/Pending confirmation:\*\*[^.]*persistence[^.]*restoration/i);
+    expect(progressSection).toMatch(/Pending confirmation:\*\*[^.]*edge cases/i);
+    expect(progressSection).not.toMatch(/does not move|transfer ownership|universal progress link|preserve a personal milestone|restore a prior session/i);
   });
 });
 
@@ -95,8 +105,19 @@ describe('Spanish codes guide', () => {
 
     expect(screen.getByRole('link', { name: /Gu\u00eda del juego Big Walk/ })).toHaveAttribute('href', '/es/game');
     expect(screen.getByRole('link', { name: /Gu\u00eda de guardado de Big Walk/ })).toHaveAttribute('href', '/es/save');
+    expect(screen.getByRole('link', { name: /Consejos para principiantes de Big Walk/ })).toHaveAttribute('href', '/es/beginner-tips');
     const pendingLabels = screen.getAllByText('Pendiente de confirmaci\u00f3n:');
     expect(pendingLabels).toHaveLength(7);
     for (const label of pendingLabels) expect(label.tagName).toBe('STRONG');
+
+    const pendingFaqs = page.frontmatter.faqs.filter((faq) => [
+      '\u00bfSe puede reutilizar un c\u00f3digo antiguo?',
+      '\u00bfPueden jugar juntos PC, PS5 y Switch 2?',
+      '\u00bfQu\u00e9 hago si un c\u00f3digo no funciona?',
+    ].includes(faq.question));
+    expect(pendingFaqs).toHaveLength(3);
+    for (const faq of pendingFaqs) {
+      expect(faq.answer).toContain('**Pendiente de confirmaci\u00f3n:**');
+    }
   });
 });

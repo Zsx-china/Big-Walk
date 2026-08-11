@@ -81,7 +81,7 @@ describe('English home page', () => {
     });
 
     expect(screen.getByRole('link', { name: 'Start Beginner Guide' })).toHaveAttribute('href', '/en/beginner-tips');
-    expect(screen.getByRole('link', { name: 'Check Active Codes' })).toHaveAttribute('href', '/en/codes');
+    expect(screen.getByRole('link', { name: 'Join Code Guide' })).toHaveAttribute('href', '/en/codes');
     expect(screen.getByRole('link', { name: 'Puzzle Solutions' })).toHaveAttribute('href', '/en/puzzles');
   });
 
@@ -101,8 +101,8 @@ describe('English home page', () => {
         href: '/en/puzzles',
       },
       {
-        title: 'Active Codes',
-        description: 'Looking for redemption codes? Check the latest working codes, how to redeem them, and when they expire.',
+        title: 'Join Codes',
+        description: 'Use temporary, host-generated Join Codes for multiplayer sessions. Official redeem codes: None announced.',
         href: '/en/codes',
       },
       {
@@ -117,6 +117,23 @@ describe('English home page', () => {
       expect(link).toHaveAttribute('href', guide.href);
       expect(link).toHaveTextContent(guide.description);
     }
+  });
+
+  it('presents the English and Spanish Codes entries as Join Codes with no redeem-code claims', async () => {
+    await renderEnglishHome();
+
+    const englishEntry = screen.getByRole('link', { name: /^03 Join Codes/ });
+    expect(englishEntry).toHaveAttribute('href', '/en/codes');
+    expect(englishEntry).toHaveTextContent('Official redeem codes: None announced.');
+    expect(englishEntry).not.toHaveTextContent(/active codes|working codes|rewards?|expire/i);
+
+    cleanup();
+    await renderSpanishHome();
+
+    const spanishEntry = screen.getByRole('link', { name: /^03 Join Codes/ });
+    expect(spanishEntry).toHaveAttribute('href', '/es/codes');
+    expect(spanishEntry).toHaveTextContent('C\u00f3digos oficiales de canje: None announced.');
+    expect(spanishEntry).not.toHaveTextContent(/recompensas?|caduc/i);
   });
 
   it('renders the approved game overview, facts, and final calls to action', async () => {

@@ -15,7 +15,7 @@ type HeroProps = {
 
 const researchActions = [
   ['Start Beginner Guide', '/beginner-tips'],
-  ['Check Active Codes', '/codes'],
+  ['Join Code Guide', '/codes'],
   ['Puzzle Solutions', '/puzzles'],
 ] as const;
 
