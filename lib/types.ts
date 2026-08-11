@@ -8,6 +8,7 @@ export const pageSlugs = [
   'price',
   'map',
   'characters',
+  'requirements',
   'save',
   'puzzles',
   'walkthrough',
