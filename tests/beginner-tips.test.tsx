@@ -9,14 +9,14 @@ import es from '../messages/es.json';
 
 const englishTitle = 'Big Walk Beginner Tips: 12 First-Hour Essentials';
 const englishDescription = 'Big Walk beginner tips explain 12 first-hour mechanics, tools, multiplayer habits, and starting-area goals using only supplied beginner-guide facts.';
-const spanishTitle = 'Guía Big Walk beginner tips: 12 claves iniciales';
-const spanishDescription = 'Big Walk beginner tips presenta 12 claves para la primera hora: mecánicas, herramientas, cooperación y objetivos iniciales confirmados para gente nueva.';
+const spanishTitle = 'Gu\u00eda Big Walk beginner tips: 12 claves iniciales';
+const spanishDescription = 'Big Walk beginner tips presenta 12 claves para la primera hora: mec\u00e1nicas, herramientas, cooperaci\u00f3n y objetivos iniciales confirmados para gente nueva.';
 const relatedSlugs = ['puzzles', 'walkthrough', 'crossplay'];
 
 afterEach(cleanup);
 
 function wordCount(content: string) {
-  return (content.match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) ?? []).length;
+  return (content.match(/[\p{L}\p{N}]+(?:['\u2019][\p{L}\p{N}]+)*/gu) ?? []).length;
 }
 
 function expectRelatedLinks(locale: 'en' | 'es') {
@@ -24,8 +24,13 @@ function expectRelatedLinks(locale: 'en' | 'es') {
   const links = screen.getAllByRole('link');
 
   expect(links.filter((link) => expectedHrefs.includes(link.getAttribute('href') ?? ''))).toHaveLength(3);
-  for (const href of expectedHrefs) {
-    expect(links.some((link) => link.getAttribute('href') === href)).toBe(true);
+  for (const href of expectedHrefs) expect(links.some((link) => link.getAttribute('href') === href)).toBe(true);
+}
+
+function expectNoExternalUrls(page: object) {
+  expect(JSON.stringify(page)).not.toMatch(/https?:\/\//i);
+  for (const link of screen.getAllByRole('link')) {
+    expect(link.getAttribute('href') ?? '').not.toMatch(/^https?:\/\//i);
   }
 }
 
@@ -47,8 +52,7 @@ describe('English beginner tips guide', () => {
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
-    expect(page.content).not.toMatch(/https?:\/\//);
-    expect(page.content).not.toMatch(/\b(?:Xbox|Easter egg|secret code|press [ABXY])\b/i);
+    expect(page.content).not.toMatch(/\b(?:Xbox|Easter egg|secret code|(?:press|tap|hit)\s+(?:[A-Za-z0-9]+|up|down|left|right)|keyboard|controller|gamepad|d-?pad|trigger|thumbstick|analog stick|joystick|mouse|WASD|arrow keys)\b/i);
 
     for (const phrase of [
       'Item holding lock', 'Slope sliding', 'Throw versus kick', 'Cancel kick', 'Lost & Found Pedestal',
@@ -62,6 +66,7 @@ describe('English beginner tips guide', () => {
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('12 first-hour essentials')).toBeInTheDocument();
     expectRelatedLinks('en');
+    expectNoExternalUrls({ metadata, frontmatter: page.frontmatter, content: page.content });
   });
 });
 
@@ -76,22 +81,21 @@ describe('Spanish beginner tips guide', () => {
     expect(spanishTitle).toHaveLength(48);
     expect(spanishDescription).toHaveLength(152);
     expect(metadata).toMatchObject({ title: spanishTitle, description: spanishDescription });
-    expect(page.content).toMatch(/^## Mecanismos básicos\n\nLa primera hora tiene 12 mecanismos y consejos de Big Walk que conviene conocer antes de explorar\./);
+    expect(page.content).toMatch(/^## Mecanismos b\u00e1sicos\n\nLa primera hora tiene 12 mecanismos y consejos de Big Walk que conviene conocer antes de explorar\./);
     expect(page.frontmatter.toc).toHaveLength(6);
     expect(page.frontmatter.steps).toHaveLength(5);
     expect(page.frontmatter.faqs).toHaveLength(8);
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
-    expect(page.content).not.toMatch(/https?:\/\//);
-    expect(page.content).not.toMatch(/\b(?:Xbox|huevo de pascua|código secreto|pulsa [ABXY])\b/i);
+    expect(page.content).not.toMatch(/\b(?:Xbox|huevo de pascua|c\u00f3digo secreto|(?:pulsa|presiona)\s+(?:[A-Za-z0-9]+|arriba|abajo|izquierda|derecha)|teclado|controlador|mando|gamepad|cruceta|gatillo|palanca|joystick|rat[o\u00f3]n|WASD|flechas)\b/i);
 
     for (const phrase of [
       'Bloqueo al sostener objetos', 'Deslizamiento por pendientes', 'Lanzar frente a patear',
-      'Cancelar una patada', 'Pedestal de objetos perdidos', 'Bengalas de señal', 'Escáner de objetos',
-      'Torre humana', 'Ciclo de día y noche', 'Sin daño por caída', 'Equilibrio por cantidad de jugadores',
+      'Cancelar una patada', 'Pedestal de objetos perdidos', 'Bengalas de se\u00f1al', 'Esc\u00e1ner de objetos',
+      'Torre humana', 'Ciclo de d\u00eda y noche', 'Sin da\u00f1o por ca\u00edda', 'Equilibrio por cantidad de jugadores',
       'escaleras rojas', 'unos 10 segundos', 'terminal naranja', 'cuatro objetos rojos',
-      '**Pendiente de confirmación:**',
+      '8 minutos', '6 minutos', '**Pendiente de confirmaci\u00f3n:**',
     ]) expect(page.content).toContain(phrase);
 
     const serializedSpanish = JSON.stringify({ metadata, frontmatter: page.frontmatter, content: page.content });
@@ -102,5 +106,6 @@ describe('Spanish beginner tips guide', () => {
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('12 claves iniciales')).toBeInTheDocument();
     expectRelatedLinks('es');
+    expectNoExternalUrls({ metadata, frontmatter: page.frontmatter, content: page.content });
   });
 });
