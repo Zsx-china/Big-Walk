@@ -79,7 +79,7 @@ describe('English beginner tips guide', () => {
     const article = container.querySelector('article');
     expect(article).not.toBeNull();
     expect(article).toHaveTextContent('red button');
-    expectTocTargets('Practical tools', 'practical-tools', 'Practical tools', 'Beginner FAQ', 'beginner-faq');
+    expectTocTargets('Practical tools', 'practical-tools', 'Practical tools', 'Beginner FAQ', 'beginner-faq-list');
     expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
 });
@@ -123,7 +123,19 @@ describe('Spanish beginner tips guide', () => {
     const article = container.querySelector('article');
     expect(article).not.toBeNull();
     expect(article).toHaveTextContent('botón rojo');
-    expectTocTargets('Herramientas prácticas', 'herramientas-practicas', 'Herramientas prácticas', 'Preguntas frecuentes para principiantes', 'preguntas-frecuentes-para-principiantes');
+    expectTocTargets('Herramientas prácticas', 'herramientas-practicas', 'Herramientas prácticas', 'Preguntas frecuentes para principiantes', 'preguntas-frecuentes-para-principiantes-list');
     expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
+});
+
+it('keeps legacy guide IDs unique and routes its FAQ sidebar link to the template section', async () => {
+  const page = await getPage('en', 'characters');
+  render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
+
+  const ids = [...document.querySelectorAll('[id]')].map((element) => element.id).filter(Boolean);
+  expect(new Set(ids).size).toBe(ids.length);
+  const faqLink = screen.getByRole('link', { name: 'Characters FAQ' });
+  const href = faqLink.getAttribute('href');
+  expect(href).toBe('#characters-faq-list');
+  expect(document.querySelector(href!)).not.toBeNull();
 });
