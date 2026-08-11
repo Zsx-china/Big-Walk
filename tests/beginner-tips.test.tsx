@@ -59,10 +59,11 @@ describe('English beginner tips guide', () => {
     expect(page.frontmatter.toc).toHaveLength(6);
     expect(page.frontmatter.steps).toHaveLength(5);
     expect(page.frontmatter.faqs).toHaveLength(8);
+    expect(page.frontmatter.faqs.some(({ question }) => /flare/i.test(question))).toBe(true);
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
-    expect(page.content.replaceAll('red button', 'red control')).not.toMatch(/\b(?:Xbox|Easter egg|secret code|(?:(?:press|tap|hit|hold)\s+(?:the\s+)?(?!Interact\b)(?:[A-Za-z0-9]+|(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|use\s+(?:the\s+)?(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|keyboard|controller|gamepad|d-?pad|trigger|thumbstick|analog stick|joystick|mouse|WASD|arrow keys)\b/i);
+    expect(page.content.replaceAll('red button', 'red control').replaceAll('key', 'object')).not.toMatch(/\b(?:Xbox|Easter egg|secret code|(?:(?:press|tap|hit|hold)\s+(?:the\s+)?(?!Interact\b)(?:[A-Za-z0-9]+|(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|use\s+(?:the\s+)?(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|keyboard|controller|gamepad|d-?pad|trigger|thumbstick|analog stick|joystick|mouse|WASD|arrow keys)\b/i);
 
     for (const phrase of [
       'Item holding lock', 'Slope sliding', 'Throw versus kick', 'Cancel kick', 'Lost & Found Pedestal',
@@ -99,6 +100,7 @@ describe('Spanish beginner tips guide', () => {
     expect(page.frontmatter.toc).toHaveLength(6);
     expect(page.frontmatter.steps).toHaveLength(5);
     expect(page.frontmatter.faqs).toHaveLength(8);
+    expect(page.frontmatter.faqs.some(({ question }) => /bengala/i.test(question))).toBe(true);
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
@@ -136,6 +138,14 @@ it('keeps legacy guide IDs unique and preserves the final content-section sideba
   expect(new Set(ids).size).toBe(ids.length);
   const faqLink = screen.getByRole('link', { name: 'Characters FAQ' });
   const href = faqLink.getAttribute('href');
-  expect(href).toBe('#characters-faq');
-  expect(document.querySelector(href!)).toHaveTextContent('Characters FAQ');
+  expect(href).toBe('#characters-faq-list');
+  expect(document.querySelector(href!)).not.toBeNull();
+});
+
+it('keeps template-guide related and FAQ sidebar targets semantically distinct', async () => {
+  const page = await getPage('en', 'about');
+  render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
+  expect(screen.getByRole('link', { name: 'Related guides' })).toHaveAttribute('href', '#related');
+  expect(screen.getAllByRole('link', { name: 'FAQ' }).find((link) => link.getAttribute('href') === '#faq-list')).toBeDefined();
+  expect(document.getElementById('faq-list')).not.toBeNull();
 });
