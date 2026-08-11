@@ -58,3 +58,37 @@ describe('English puzzles guide', () => {
     expect(metadata).toMatchObject({ title, description });
   });
 });
+
+describe('Spanish puzzles guide', () => {
+  it('mirrors the source-bounded puzzle facts through the real content loader', async () => {
+    const page = await getPage('es', 'puzzles');
+
+    expect(page.frontmatter.toc).toEqual([
+      { id: 'hechos-confirmados', label: 'Hechos confirmados' },
+      { id: 'rompecabezas-coordenadas', label: 'Rompecabezas de coordenadas: 4166 y 1899' },
+      { id: 'cooperacion-voz', label: 'Cooperación y chat de voz por proximidad' },
+      { id: 'tipos-rompecabezas', label: 'Interacción con objetos y entorno' },
+      { id: 'tablero-clavijas', label: 'Rompecabezas de tablero de clavijas' },
+      { id: 'respuestas-ocultas', label: 'Respuestas ocultas' },
+      { id: 'uso-seguro', label: 'Cómo usar esta página' },
+      { id: 'revision-fuente-oficial', label: 'Revisión de fuente oficial' },
+    ]);
+    expect(page.frontmatter.faqs).toHaveLength(8);
+    expect(page.frontmatter.steps).toHaveLength(4);
+    expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual([
+      'walkthrough',
+      'game',
+      'beginner-tips',
+    ]);
+
+    expect(page.content).toMatch(
+      /^## Hechos confirmados\n\nTodas las soluciones de puzles de Big Walk se recopilan aquí\./,
+    );
+    expect(page.content).toContain('4166');
+    expect(page.content).toContain('1899');
+    expect(page.content).toContain('Pendiente de confirmación');
+
+    const urls = page.content.match(/https?:\/\/[^\s)]+/g) ?? [];
+    expect(urls).toEqual([officialUrl]);
+  });
+});
