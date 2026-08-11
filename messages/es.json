@@ -13,9 +13,28 @@
   "Footer": {
     "Heading": "Wiki de Big Walk",
     "Statement": "Una guía de la comunidad para cada paso de tu aventura en Big Walk.",
+    "Disclaimer": "Este sitio independiente de fans no está afiliado, respaldado ni patrocinado por House House ni por ningún titular de plataforma.",
+    "OfficialLinks": "Enlaces oficiales",
+    "OfficialSite": "Sitio oficial",
+    "FAQ": "Preguntas frecuentes",
+    "PressKit": "Kit de prensa",
+    "Steam": "Steam",
+    "PlayStation": "PlayStation",
+    "Nintendo": "Nintendo",
+    "YouTube": "YouTube",
+    "Wiki": "Wiki",
+    "About": "Acerca de",
     "Privacy": "Privacidad",
     "Terms": "Términos",
-    "Copyright": "© Wiki de Big Walk"
+    "Copyright": "© {year} Wiki de Big Walk. Todas las marcas del juego pertenecen a sus respectivos propietarios."
+  },
+  "GuidePage": {
+    "Home": "Inicio",
+    "LastUpdated": "Última actualización",
+    "Guide": "Guía",
+    "HowToProceed": "Cómo continuar",
+    "FAQ": "Preguntas frecuentes",
+    "Evidence": "Los detalles de la guía se revisan según la información disponible en la fecha indicada."
   },
   "Common": {
     "OnThisPage": "En esta página",

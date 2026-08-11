@@ -1,7 +1,11 @@
 import type { Locale } from '../i18n/config';
 import type { FaqItem, StepItem } from './types';
 
-const siteUrl = 'https://bigwalk-wiki.example.com';
+export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+
+export function absoluteUrl(pathname: string) {
+  return `${SITE_ORIGIN}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
+}
 
 function pathFor(locale: Locale, slug?: string) {
   return slug && slug !== 'home' ? `/${locale}/${slug}` : `/${locale}`;
@@ -25,7 +29,7 @@ export function createBreadcrumbSchema(locale: Locale, slug: string) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${siteUrl}${item.path}`,
+      item: absoluteUrl(item.path),
     })),
   };
 }

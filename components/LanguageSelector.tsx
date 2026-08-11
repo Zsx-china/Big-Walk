@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import type { Locale } from '../i18n/config';
 import { localizeHref } from '../lib/links';
 
-export function LanguageSelector({ locale, href = `/${locale}` }: { locale: Locale; href?: string }) {
+export function LanguageSelector({ locale, href = '/' }: { locale: Locale; href?: string }) {
   const t = useTranslations('Languages');
   const alternateLocale: Locale = locale === 'en' ? 'es' : 'en';
 

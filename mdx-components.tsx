@@ -18,12 +18,16 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
  * Renders the intentionally small, safe markdown subset used by initial content pages.
  * It never evaluates MDX expressions or imports from content files.
  */
-export function renderMdxContent(content: string): ReactNode {
+export function renderMdxContent(content: string, headingIds: string[] = []): ReactNode {
+  let headingIndex = 0;
+
   return content.split(/\n\s*\n/).filter(Boolean).map((block, index) => {
     const heading = /^(#{1,3})\s+(.+)$/m.exec(block);
     if (heading) {
       const text = heading[2].trim();
-      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const generatedId = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const id = headingIds[headingIndex] ?? generatedId;
+      headingIndex += 1;
       const Tag = `h${heading[1].length}` as 'h1' | 'h2' | 'h3';
       return <Tag id={id} key={index}>{renderInline(text, `heading-${index}`)}</Tag>;
     }

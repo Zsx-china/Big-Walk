@@ -8,7 +8,7 @@ import en from '../messages/en.json';
 const codesPage = {
   locale: 'en' as const,
   slug: 'codes' as const,
-  content: 'Codes are shared by the community.',
+  content: '## Current status\n\nCodes are **shared** by the community.\n\n## How to redeem\n\nFollow the steps below.\n\n## FAQ\n\nAnswers to common questions.',
   frontmatter: {
     title: 'Big Walk Codes',
     description: 'A careful list of currently known codes.',
@@ -47,5 +47,17 @@ describe('guide page', () => {
     expect(screen.getByRole('heading', { name: 'ON THIS PAGE' })).toBeInTheDocument();
     expect(document.querySelectorAll('article details')).toHaveLength(2);
     expect(screen.getByText('01')).toBeInTheDocument();
+  });
+
+  it('renders safe MDX headings with table-of-contents ids instead of raw source', () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        <GuidePage page={codesPage} />
+      </NextIntlClientProvider>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Current status' })).toHaveAttribute('id', 'codes');
+    expect(screen.getByRole('heading', { name: 'How to redeem' })).toHaveAttribute('id', 'steps');
+    expect(screen.queryByText(/## Current status/)).not.toBeInTheDocument();
   });
 });

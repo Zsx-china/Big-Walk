@@ -22,10 +22,21 @@ describe('shared site shell', () => {
     const nav = screen.getByLabelText('Primary navigation');
     expect(nav.querySelector('a[href="/en"]')).toHaveTextContent('Home');
     expect(nav).toHaveTextContent('Official FAQ');
+    expect(nav.querySelector('a[href="/en/beginner-tips"]')).toHaveTextContent('Start Here');
+    expect(nav.querySelector('a[href="/en/game"]')).toHaveTextContent('Game Guides');
+    expect(nav.querySelector('a[href="/en/start-here"]')).not.toBeInTheDocument();
+    expect(nav.querySelector('a[href="/en/game-guides"]')).not.toBeInTheDocument();
     expect(screen.getAllByRole('link', { name: 'Play Big Walk' })[0]).toHaveAttribute(
       'href',
       expect.stringContaining('store.steampowered.com'),
     );
+  });
+
+  it('preserves the current page when switching locale', () => {
+    renderWithLocale(<Header locale="en" href="/codes" />);
+
+    const selectors = screen.getAllByLabelText('Language selector');
+    expect(selectors[0].querySelector('a[lang="es"]')).toHaveAttribute('href', '/es/codes');
   });
 
   it('lists seven official destinations in the footer', () => {

@@ -5,7 +5,7 @@ import { GuidePage } from '../../../components/GuidePage';
 import { StructuredData } from '../../../components/StructuredData';
 import { isSupportedLocale } from '../../../i18n/config';
 import { getPage, pageSlugs, type PageSlug } from '../../../lib/content';
-import { createBreadcrumbSchema, createFaqSchema, createHowToSchema } from '../../../lib/schema';
+import { absoluteUrl, createBreadcrumbSchema, createFaqSchema, createHowToSchema } from '../../../lib/schema';
 
 function isArticleSlug(value: string): value is Exclude<PageSlug, 'home'> {
   return value !== 'home' && pageSlugs.includes(value as PageSlug);
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isSupportedLocale(locale) || !isArticleSlug(slug)) return {};
   try {
     const { frontmatter } = await getPage(locale, slug);
-    return { title: frontmatter.title, description: frontmatter.description, alternates: { canonical: `/${locale}/${slug}` } };
+    return { title: frontmatter.title, description: frontmatter.description, alternates: { canonical: absoluteUrl(`/${locale}/${slug}`) } };
   } catch {
     return {};
   }

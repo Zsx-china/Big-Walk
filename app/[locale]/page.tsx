@@ -5,13 +5,13 @@ import { HomePage } from '../../components/HomePage';
 import { StructuredData } from '../../components/StructuredData';
 import { isSupportedLocale } from '../../i18n/config';
 import { getPage } from '../../lib/content';
-import { createBreadcrumbSchema } from '../../lib/schema';
+import { absoluteUrl, createBreadcrumbSchema } from '../../lib/schema';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isSupportedLocale(locale)) return {};
   const { frontmatter } = await getPage(locale, 'home');
-  return { title: frontmatter.title, description: frontmatter.description, alternates: { canonical: `/${locale}` } };
+  return { title: frontmatter.title, description: frontmatter.description, alternates: { canonical: absoluteUrl(`/${locale}`) } };
 }
 
 export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {

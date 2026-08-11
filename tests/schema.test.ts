@@ -15,5 +15,9 @@ describe('structured data schemas', () => {
     expect(schema['@type']).toBe('BreadcrumbList');
     expect(schema.itemListElement).toHaveLength(2);
     expect(schema.itemListElement.map((item) => item.position)).toEqual([1, 2]);
+    expect(schema.itemListElement.map((item) => item.item)).toEqual([
+      'http://localhost:3000/en',
+      'http://localhost:3000/en/beginner-tips',
+    ]);
   });
 });

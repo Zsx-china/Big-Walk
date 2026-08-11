@@ -5,11 +5,11 @@ import { OFFICIAL_LINKS, localizeHref } from '../lib/links';
 import { LanguageSelector } from './LanguageSelector';
 
 const navigation = [
-  ['Home', '/'], ['StartHere', '/start-here'], ['About', '/about'], ['Codes', '/codes'],
-  ['Classes', '/classes'], ['Tools', '/tools'], ['GameGuides', '/game-guides'],
+  ['Home', '/'], ['StartHere', '/beginner-tips'], ['About', '/about'], ['Codes', '/codes'],
+  ['Classes', '/classes'], ['Tools', '/tools'], ['GameGuides', '/game'],
 ] as const;
 
-export function Header({ locale }: { locale: Locale }) {
+export function Header({ locale, href = '/' }: { locale: Locale; href?: string }) {
   const t = useTranslations('Header');
   const navLinks = navigation.map(([key, href]) => ({ label: t(key), href: localizeHref(locale, href) }));
 
@@ -24,7 +24,7 @@ export function Header({ locale }: { locale: Locale }) {
           <a href={OFFICIAL_LINKS.faq} target="_blank" rel="noreferrer">{t('OfficialFAQ')}</a>
         </nav>
         <div className="ml-auto hidden items-center gap-3 lg:flex">
-          <LanguageSelector locale={locale} />
+          <LanguageSelector locale={locale} href={href} />
           <a className="rounded bg-red-600 px-3 py-2 text-xs font-black uppercase tracking-wide text-white" href={OFFICIAL_LINKS.steam} target="_blank" rel="noreferrer">{t('PlayBigWalk')}</a>
         </div>
         <details className="ml-auto lg:hidden">
@@ -32,7 +32,7 @@ export function Header({ locale }: { locale: Locale }) {
           <nav aria-label="Mobile navigation" className="absolute right-4 z-10 mt-2 grid min-w-52 gap-2 border-2 border-slate-950 bg-white p-4 text-sm font-bold shadow-lg">
             {navLinks.map((link) => <a key={link.href} href={link.href}>{link.label}</a>)}
             <a href={OFFICIAL_LINKS.faq} target="_blank" rel="noreferrer">{t('OfficialFAQ')}</a>
-            <LanguageSelector locale={locale} />
+            <LanguageSelector locale={locale} href={href} />
             <a className="rounded bg-red-600 px-3 py-2 text-center text-xs font-black uppercase tracking-wide text-white" href={OFFICIAL_LINKS.steam} target="_blank" rel="noreferrer">{t('PlayBigWalk')}</a>
           </nav>
         </details>
