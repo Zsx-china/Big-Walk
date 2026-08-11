@@ -5,6 +5,7 @@ export const pageSlugs = [
   'codes',
   'crossplay',
   'review',
+  'price',
   'save',
   'puzzles',
   'walkthrough',
