@@ -6,6 +6,7 @@ export const pageSlugs = [
   'crossplay',
   'review',
   'price',
+  'map',
   'save',
   'puzzles',
   'walkthrough',
