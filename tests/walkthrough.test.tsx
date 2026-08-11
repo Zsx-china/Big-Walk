@@ -43,5 +43,6 @@ describe('English walkthrough guide', () => {
     expect(screen.getByRole('link', { name: 'Big Walk Puzzle Solutions' })).toHaveAttribute('href', '/en/puzzles');
     expect(screen.getByRole('link', { name: 'Big Walk Save Ownership Guide' })).toHaveAttribute('href', '/en/save');
     expect(screen.getByRole('link', { name: 'Big Walk Game Guide' })).toHaveAttribute('href', '/en/game');
+    expect(screen.getByText('Supplied walkthrough research closes with the first ending after Black Tower, not official confirmation.')).toBeInTheDocument();
   });
 });
