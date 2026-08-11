@@ -128,7 +128,7 @@ describe('Spanish beginner tips guide', () => {
   });
 });
 
-it('keeps legacy guide IDs unique and routes its FAQ sidebar link to the template section', async () => {
+it('keeps legacy guide IDs unique and preserves the final content-section sidebar target', async () => {
   const page = await getPage('en', 'characters');
   render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
 
@@ -136,6 +136,6 @@ it('keeps legacy guide IDs unique and routes its FAQ sidebar link to the templat
   expect(new Set(ids).size).toBe(ids.length);
   const faqLink = screen.getByRole('link', { name: 'Characters FAQ' });
   const href = faqLink.getAttribute('href');
-  expect(href).toBe('#characters-faq-list');
-  expect(document.querySelector(href!)).not.toBeNull();
+  expect(href).toBe('#characters-faq');
+  expect(document.querySelector(href!)).toHaveTextContent('Characters FAQ');
 });
