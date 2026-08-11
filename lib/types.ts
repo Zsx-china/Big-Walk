@@ -3,6 +3,7 @@ import type { Locale } from '../i18n/config';
 export const pageSlugs = [
   'home',
   'codes',
+  'crossplay',
   'save',
   'puzzles',
   'walkthrough',
