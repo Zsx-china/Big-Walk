@@ -30,8 +30,7 @@ export function renderMdxContent(content: string, headingIds: string[] = []): Re
     if (heading) {
       const text = heading[2].trim();
       const generatedId = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      const id = headingIds[headingIndex] ?? generatedId;
-      headingIndex += 1;
+      const id = heading[1].length === 2 ? (headingIds[headingIndex++] ?? generatedId) : generatedId;
       const Tag = `h${heading[1].length}` as 'h1' | 'h2' | 'h3';
       return <Tag id={id} key={index}>{renderInline(text, `heading-${index}`)}</Tag>;
     }
