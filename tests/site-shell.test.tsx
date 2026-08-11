@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { Footer } from '../components/Footer';
@@ -56,6 +56,16 @@ describe('shared site shell', () => {
       'https://www.nintendo.com/us/store/products/big-walk-switch-2/',
       'https://www.youtube.com/@HouseHouseGames',
     ]);
+  });
+
+  it('keeps the English copyright fixed at 2026', () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2030-01-01T00:00:00Z'));
+
+    renderWithLocale(<Footer locale="en" />);
+
+    expect(screen.getByText('© 2026 Big Walk Wiki')).toBeInTheDocument();
+    vi.useRealTimers();
   });
 
   it('renders the current breadcrumb as uppercase text rather than a link', () => {

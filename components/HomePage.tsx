@@ -40,7 +40,7 @@ export function HomePage({ page }: { page: PageDocument }) {
           <div className="grid gap-5 py-6 sm:grid-cols-2">
             {frontmatter.relatedLinks.map((guide, index) => (
               <a key={guide.slug} href={localizeHref(locale, `/${guide.slug}`)} className="group border-2 border-ink bg-white p-6 text-ink shadow-[5px_5px_0_0_var(--color-ember)] transition-transform hover:-translate-y-1">
-                <span className="text-xs font-black uppercase tracking-[0.18em] text-teal">0{index + 1}</span>
+                <span className="inline-block border-l-4 border-teal pl-2 text-xs font-black uppercase tracking-[0.18em] text-ink">0{index + 1}</span>
                 <h3 className="mt-4 text-2xl font-black tracking-tight group-hover:underline">{guide.label}</h3>
                 <p className="mt-2 text-sm font-medium leading-6 text-slate-700">{guide.description}</p>
               </a>

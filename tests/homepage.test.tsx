@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { HomePage } from '../components/HomePage';
 import { getPage } from '../lib/content';
 import en from '../messages/en.json';
+import es from '../messages/es.json';
 
 afterEach(cleanup);
 
@@ -18,9 +19,19 @@ async function renderEnglishHome() {
   );
 }
 
+async function renderSpanishHome() {
+  const page = await getPage('es', 'home');
+
+  return render(
+    <NextIntlClientProvider locale="es" messages={es}>
+      <HomePage page={page} />
+    </NextIntlClientProvider>,
+  );
+}
+
 describe('English home page', () => {
-  it('uses the approved hero and accent theme roles', async () => {
-    await renderEnglishHome();
+  it('uses the approved hero and accessible accent theme roles', async () => {
+    const { container } = await renderEnglishHome();
 
     const hero = screen.getByRole('heading', { level: 1, name: 'Big Walk' }).closest('section');
     expect(hero).toHaveClass('bg-ink');
@@ -33,10 +44,17 @@ describe('English home page', () => {
 
     const firstGuide = screen.getByRole('link', { name: /^01 Beginner Guide/ });
     expect(firstGuide).toHaveClass('border-ink', 'text-ink', 'shadow-[5px_5px_0_0_var(--color-ember)]');
-    expect(within(firstGuide).getByText('01')).toHaveClass('text-teal');
+    expect(within(firstGuide).getByText('01')).toHaveClass('border-teal', 'text-ink');
+    expect(container.querySelector('.text-teal')).not.toBeInTheDocument();
 
     const finalCta = screen.getByRole('heading', { name: 'Ready to Master Big Walk?' }).closest('section');
     expect(finalCta).toHaveClass('border-ink', 'bg-ember-light', 'shadow-[8px_8px_0_0_var(--color-ember)]');
+
+    cleanup();
+    const spanishHome = await renderSpanishHome();
+    expect(screen.getByText('Pick a direction')).toHaveClass('border-teal', 'text-ink');
+    expect(screen.getAllByText('01')[0]).toHaveClass('border-teal', 'text-ink');
+    expect(spanishHome.container.querySelector('.text-teal')).not.toBeInTheDocument();
   });
 
   it('renders the approved hero, factual status cards, and guide routes', async () => {

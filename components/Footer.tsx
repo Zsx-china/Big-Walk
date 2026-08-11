@@ -10,7 +10,7 @@ const officialEntries = [
 
 export function Footer({ locale }: { locale: Locale }) {
   const t = useTranslations('Footer');
-  const year = new Date().getFullYear();
+  const copyright = locale === 'en' ? '© 2026 Big Walk Wiki' : t('Copyright', { year: 2026 });
 
   return (
     <footer className="mt-16 bg-slate-950 text-slate-200">
@@ -30,7 +30,7 @@ export function Footer({ locale }: { locale: Locale }) {
         <section className="text-sm">
           <h2 className="font-black uppercase tracking-wide text-white">{t('Wiki')}</h2>
           <div className="mt-3 flex gap-4"><a href={localizeHref(locale, '/about')}>{t('About')}</a><a href={localizeHref(locale, '/privacy')}>{t('Privacy')}</a><a href={localizeHref(locale, '/terms')}>{t('Terms')}</a></div>
-          <p className="mt-6 text-xs text-slate-400">{t('Copyright', { year })}</p>
+          <p className="mt-6 text-xs text-slate-400">{copyright}</p>
         </section>
       </div>
     </footer>
