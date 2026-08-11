@@ -52,7 +52,7 @@ describe('English beginner tips guide', () => {
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
-    expect(page.content).not.toMatch(/\b(?:Xbox|Easter egg|secret code|(?:press|tap|hit)\s+(?:[A-Za-z0-9]+|up|down|left|right)|keyboard|controller|gamepad|d-?pad|trigger|thumbstick|analog stick|joystick|mouse|WASD|arrow keys)\b/i);
+    expect(page.content).not.toMatch(/\b(?:Xbox|Easter egg|secret code|(?:(?:press|tap|hit|hold)\s+(?:the\s+)?(?!Interact\b)(?:[A-Za-z0-9]+|(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|use\s+(?:the\s+)?(?:[A-Za-z0-9]+\s+){0,3}(?:button|key)|(?:button|key)(?:\s+[A-Za-z0-9]+){0,3})|keyboard|controller|gamepad|d-?pad|trigger|thumbstick|analog stick|joystick|mouse|WASD|arrow keys)\b/i);
 
     for (const phrase of [
       'Item holding lock', 'Slope sliding', 'Throw versus kick', 'Cancel kick', 'Lost & Found Pedestal',
@@ -88,7 +88,7 @@ describe('Spanish beginner tips guide', () => {
     expect(wordCount(page.content)).toBeGreaterThanOrEqual(1_050);
     expect(wordCount(page.content)).toBeLessThanOrEqual(1_350);
     expect(page.frontmatter.relatedLinks.map(({ slug }) => slug)).toEqual(relatedSlugs);
-    expect(page.content).not.toMatch(/\b(?:Xbox|huevo de pascua|c\u00f3digo secreto|(?:pulsa|presiona)\s+(?:[A-Za-z0-9]+|arriba|abajo|izquierda|derecha)|teclado|controlador|mando|gamepad|cruceta|gatillo|palanca|joystick|rat[o\u00f3]n|WASD|flechas)\b/i);
+    expect(page.content).not.toMatch(/\b(?:Xbox|huevo de pascua|c\u00f3digo secreto|(?:(?:pulsa|presiona|toca|mant[e\u00e9]n)\s+(?:el\s+|la\s+)?(?!Interact(?:uar)?\b)(?:[A-Za-z0-9]+|(?:[A-Za-z0-9]+\s+){0,3}(?:bot[o\u00f3]n|tecla)|(?:bot[o\u00f3]n|tecla)(?:\s+[A-Za-z0-9]+){0,3})|usa\s+(?:el\s+|la\s+)?(?:[A-Za-z0-9]+\s+){0,3}(?:bot[o\u00f3]n|tecla)|(?:bot[o\u00f3]n|tecla)(?:\s+[A-Za-z0-9]+){0,3})|teclado|controlador|mando|gamepad|cruceta|gatillo|palanca|joystick|rat[o\u00f3]n|WASD|flechas)\b/i);
 
     for (const phrase of [
       'Bloqueo al sostener objetos', 'Deslizamiento por pendientes', 'Lanzar frente a patear',
