@@ -145,7 +145,11 @@ it('keeps legacy guide IDs unique and preserves the final content-section sideba
 it('keeps template-guide related and FAQ sidebar targets semantically distinct', async () => {
   const page = await getPage('en', 'about');
   render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
-  expect(screen.getByRole('link', { name: 'Related guides' })).toHaveAttribute('href', '#related');
-  expect(screen.getAllByRole('link', { name: 'FAQ' }).find((link) => link.getAttribute('href') === '#faq-list')).toBeDefined();
-  expect(document.getElementById('faq-list')).not.toBeNull();
+  for (const [label, href] of [['Overview', '#overview'], ['Details', '#details'], ['Steps', '#steps-guide'], ['FAQ', '#faq-list'], ['Related guides', '#related']] as const) {
+    const link = screen.getAllByRole('link', { name: label }).find((candidate) => candidate.getAttribute('href') === href);
+    expect(link).toBeDefined();
+    expect(document.querySelector(href)).not.toBeNull();
+  }
+  const ids = [...document.querySelectorAll('[id]')].map((element) => element.id).filter(Boolean);
+  expect(new Set(ids).size).toBe(ids.length);
 });
