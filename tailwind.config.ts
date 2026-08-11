@@ -12,7 +12,10 @@ const config: Config = {
         ink: '#1F2937',
         body: '#374151',
         paper: '#F9FAFB',
-        ember: '#F59E0B',
+        ember: 'hsl(35 85% 55%)',
+        emberLight: 'hsl(35 90% 65%)',
+        teal: 'hsl(165 70% 45%)',
+        tealLight: 'hsl(165 70% 65%)',
         link: '#3B82F6'
       },
       maxWidth: {

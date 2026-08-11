@@ -7,6 +7,15 @@ export function absoluteUrl(pathname: string) {
   return `${SITE_ORIGIN}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
 }
 
+export function createWebsiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Big Walk Wiki',
+    url: SITE_ORIGIN,
+  };
+}
+
 function pathFor(locale: Locale, slug?: string) {
   return slug && slug !== 'home' ? `/${locale}/${slug}` : `/${locale}`;
 }

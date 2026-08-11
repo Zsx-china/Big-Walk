@@ -4,7 +4,10 @@
   --color-ink: #1f2937;
   --color-body: #374151;
   --color-paper: #f9fafb;
-  --color-ember: #f59e0b;
+  --color-ember: hsl(35 85% 55%);
+  --color-ember-light: hsl(35 90% 65%);
+  --color-teal: hsl(165 70% 45%);
+  --color-teal-light: hsl(165 70% 65%);
   --color-link: #3b82f6;
   --site-width: 1200px;
 }
