@@ -11,9 +11,9 @@
     "PlayBigWalk": "Play Big Walk"
   },
   "Footer": {
-    "Heading": "Big Walk Wiki",
-    "Statement": "A community guide for every step of your Big Walk adventure.",
-    "Disclaimer": "This independent fan site is not affiliated with, endorsed by, or sponsored by House House or any platform holder.",
+    "Heading": "BIG WALK WIKI",
+    "Statement": "Big Walk Wiki is an independent fan-made guide site covering puzzle solutions, active codes, walkthroughs, crossplay guides, maps, characters, and more for House House's cooperative adventure game.",
+    "Disclaimer": "Fan-made wiki for Big Walk — co-op adventure for up to 12 players. Metascore 93. Cross-platform play on PC, PS5 & Switch 2.",
     "OfficialLinks": "Official links",
     "OfficialSite": "Official site",
     "FAQ": "FAQ",
@@ -22,11 +22,12 @@
     "PlayStation": "PlayStation",
     "Nintendo": "Nintendo",
     "YouTube": "YouTube",
-    "Wiki": "Wiki",
-    "About": "About",
+    "Wiki": "BIG WALK WIKI",
+    "About": "About Big Walk Wiki",
     "Privacy": "Privacy",
     "Terms": "Terms",
-    "Copyright": "© {year} Big Walk Wiki. All game trademarks belong to their respective owners."
+    "Copyright": "© {year} Big Walk Wiki",
+    "RightsNotice": "Big Walk and related materials belong to their respective rights holders."
   },
   "GuidePage": {
     "Home": "Home",

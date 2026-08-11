@@ -30,7 +30,7 @@ describe('shared site shell', () => {
     expect(nav.querySelector('a[href="/en/game-guides"]')).not.toBeInTheDocument();
     expect(screen.getAllByRole('link', { name: 'Play Big Walk' })[0]).toHaveAttribute(
       'href',
-      expect.stringContaining('store.steampowered.com'),
+      'https://store.steampowered.com/app/1478500/Big_Walk/',
     );
   });
 
@@ -44,7 +44,18 @@ describe('shared site shell', () => {
   it('lists seven official destinations in the footer', () => {
     renderWithLocale(<Footer locale="en" />);
 
-    expect(screen.getByLabelText('Official links').querySelectorAll('a')).toHaveLength(7);
+    const links = screen.getByLabelText('Official links').querySelectorAll('a');
+
+    expect(links).toHaveLength(7);
+    expect(Array.from(links, (link) => link.getAttribute('href'))).toEqual([
+      'https://bigwalk.game/',
+      'https://bigwalk.game/faq',
+      'https://bigwalk.game/presskit/',
+      'https://store.steampowered.com/app/1478500/Big_Walk/',
+      'https://www.playstation.com/en-us/games/big-walk/',
+      'https://www.nintendo.com/us/store/products/big-walk-switch-2/',
+      'https://www.youtube.com/@HouseHouseGames',
+    ]);
   });
 
   it('renders the current breadcrumb as uppercase text rather than a link', () => {

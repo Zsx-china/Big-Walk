@@ -19,6 +19,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <p className="text-lg font-black text-white">{t('Heading')}</p>
           <p className="mt-2 text-sm">{t('Statement')}</p>
           <p className="mt-4 text-xs text-slate-400">{t('Disclaimer')}</p>
+          <p className="mt-4 text-xs text-slate-400">{t('RightsNotice')}</p>
         </section>
         <section aria-label={t('OfficialLinks')}>
           <h2 className="text-sm font-black uppercase tracking-wide text-white">{t('OfficialLinks')}</h2>
