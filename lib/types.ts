@@ -9,6 +9,7 @@ export const pageSlugs = [
   'map',
   'characters',
   'requirements',
+  'wiki',
   'save',
   'puzzles',
   'walkthrough',

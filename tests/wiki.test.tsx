@@ -59,9 +59,9 @@ describe('English wiki overview', () => {
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('2–12 players')).toBeInTheDocument();
     expect(screen.getByText('August 4, 2026')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Big Walk Game Guide' })).toHaveAttribute('href', '/en/game');
-    expect(screen.getByRole('link', { name: 'Big Walk Crossplay Guide' })).toHaveAttribute('href', '/en/crossplay');
-    expect(screen.getByRole('link', { name: 'Big Walk Beginner Tips' })).toHaveAttribute('href', '/en/beginner-tips');
+    for (const link of screen.getAllByRole('link', { name: 'Big Walk Game Guide' })) expect(link).toHaveAttribute('href', '/en/game');
+    for (const link of screen.getAllByRole('link', { name: 'Big Walk Crossplay Guide' })) expect(link).toHaveAttribute('href', '/en/crossplay');
+    for (const link of screen.getAllByRole('link', { name: 'Big Walk Beginner Tips' })) expect(link).toHaveAttribute('href', '/en/beginner-tips');
   });
 });
 
@@ -96,8 +96,8 @@ describe('Spanish wiki overview', () => {
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('2–12 jugadores')).toBeInTheDocument();
     expect(screen.getByText('4 de agosto de 2026')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Guía del juego Big Walk' })).toHaveAttribute('href', '/es/game');
-    expect(screen.getByRole('link', { name: 'Guía de crossplay de Big Walk' })).toHaveAttribute('href', '/es/crossplay');
-    expect(screen.getByRole('link', { name: 'Consejos para principiantes de Big Walk' })).toHaveAttribute('href', '/es/beginner-tips');
+    for (const link of screen.getAllByRole('link', { name: 'Guía del juego Big Walk' })) expect(link).toHaveAttribute('href', '/es/game');
+    for (const link of screen.getAllByRole('link', { name: 'Guía de crossplay de Big Walk' })) expect(link).toHaveAttribute('href', '/es/crossplay');
+    for (const link of screen.getAllByRole('link', { name: 'Consejos para principiantes de Big Walk' })) expect(link).toHaveAttribute('href', '/es/beginner-tips');
   });
 });
