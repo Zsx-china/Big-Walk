@@ -63,6 +63,12 @@ describe('Spanish walkthrough guide', () => {
     expect(page.frontmatter.steps).toHaveLength(8);
     expect(page.frontmatter.faqs).toHaveLength(8);
     expect(page.content).toContain('Pendiente de confirmaci贸n');
+    for (const stage of page.content.trim().split('\n\n## ')) {
+      const [supportedResearch, pendingResearch] = stage.split('**Pendiente de confirmaci贸n:**');
+
+      expect(pendingResearch).toBeDefined();
+      expect(supportedResearch).not.toMatch(/no identifica|no describe|no da|sin describir|sin definir/i);
+    }
     expect((page.content.match(/[\p{L}\p{N}]+(?:['鈥橾[\p{L}\p{N}]+)*/gu) ?? []).length).toBeGreaterThanOrEqual(1_050);
     expect((page.content.match(/[\p{L}\p{N}]+(?:['鈥橾[\p{L}\p{N}]+)*/gu) ?? []).length).toBeLessThanOrEqual(1_350);
     expect(metadata).toMatchObject({
