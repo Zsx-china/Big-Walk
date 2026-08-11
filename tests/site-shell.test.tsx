@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { Footer } from '../components/Footer';
@@ -14,6 +14,8 @@ function renderWithLocale(ui: React.ReactNode) {
     </NextIntlClientProvider>,
   );
 }
+
+afterEach(cleanup);
 
 describe('shared site shell', () => {
   it('renders the header navigation and Steam play CTA', () => {

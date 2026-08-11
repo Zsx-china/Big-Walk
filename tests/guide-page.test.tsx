@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { GuidePage } from '../components/GuidePage';
 import en from '../messages/en.json';
@@ -35,6 +35,8 @@ const codesPage = {
     relatedLinks: [],
   },
 };
+
+afterEach(cleanup);
 
 describe('guide page', () => {
   it('renders a Codes guide with navigation, disclosure FAQs, and numbered steps', () => {
