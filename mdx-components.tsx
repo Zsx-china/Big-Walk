@@ -6,11 +6,15 @@ export type MdxComponentMap = Record<string, (props: { children?: ReactNode }) =
 export const mdxComponents: MdxComponentMap = {};
 
 function renderInline(text: string, keyPrefix: string): ReactNode[] {
-  const parts = text.split(/(\[[^\]]+\]\([^\s)]+\))/g);
+  const parts = text.split(/(\[[^\]]+\]\([^\s)]+\)|\*\*[^*\n]+\*\*)/g);
   return parts.filter(Boolean).map((part, index) => {
-    const match = /^\[([^\]]+)\]\(([^\s)]+)\)$/.exec(part);
-    if (!match) return part;
-    return <a href={match[2]} key={`${keyPrefix}-${index}`}>{match[1]}</a>;
+    const link = /^\[([^\]]+)\]\(([^\s)]+)\)$/.exec(part);
+    if (link) return <a href={link[2]} key={`${keyPrefix}-${index}`}>{link[1]}</a>;
+
+    const strong = /^\*\*([^*\n]+)\*\*$/.exec(part);
+    if (strong) return <strong key={`${keyPrefix}-${index}`}>{strong[1]}</strong>;
+
+    return part;
   });
 }
 
