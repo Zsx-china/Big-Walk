@@ -1,0 +1,30 @@
+{
+  "Header": {
+    "Home": "Inicio",
+    "StartHere": "Empieza aquí",
+    "About": "Acerca de",
+    "Codes": "Códigos",
+    "Classes": "Clases",
+    "Tools": "Herramientas",
+    "GameGuides": "Guías del juego",
+    "OfficialFAQ": "Preguntas frecuentes oficiales",
+    "PlayBigWalk": "Jugar Big Walk"
+  },
+  "Footer": {
+    "Heading": "Wiki de Big Walk",
+    "Statement": "Una guía de la comunidad para cada paso de tu aventura en Big Walk.",
+    "Privacy": "Privacidad",
+    "Terms": "Términos",
+    "Copyright": "© Wiki de Big Walk"
+  },
+  "Common": {
+    "OnThisPage": "En esta página",
+    "ReadMore": "Leer más",
+    "Updated": "Actualizado",
+    "KeepWalking": "Sigue caminando"
+  },
+  "Languages": {
+    "English": "Inglés",
+    "Spanish": "Español"
+  }
+}

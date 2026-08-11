@@ -1,5 +1,5 @@
-import './globals.css';
+import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  return <main id="root">Big Walk Wiki</main>;
+  redirect('/en');
 }
