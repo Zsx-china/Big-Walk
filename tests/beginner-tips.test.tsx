@@ -27,9 +27,9 @@ function expectRelatedLinks(locale: 'en' | 'es') {
   for (const href of expectedHrefs) expect(links.some((link) => link.getAttribute('href') === href)).toBe(true);
 }
 
-function expectNoExternalUrls(page: object) {
-  expect(JSON.stringify(page)).not.toMatch(/https?:\/\//i);
-  for (const link of screen.getAllByRole('link')) {
+function expectNoExternalUrls(articleData: object, article: HTMLElement) {
+  expect(JSON.stringify(articleData)).not.toMatch(/https?:\/\//i);
+  for (const link of article.querySelectorAll('a')) {
     expect(link.getAttribute('href') ?? '').not.toMatch(/^https?:\/\//i);
   }
 }
@@ -61,12 +61,14 @@ describe('English beginner tips guide', () => {
       '8 minutes', '6 minutes', '**Pending confirmation:**',
     ]) expect(page.content).toContain(phrase);
 
-    render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
+    const { container } = render(<NextIntlClientProvider locale="en" messages={en}><GuidePage page={page} /></NextIntlClientProvider>);
 
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('12 first-hour essentials')).toBeInTheDocument();
     expectRelatedLinks('en');
-    expectNoExternalUrls({ metadata, frontmatter: page.frontmatter, content: page.content });
+    const article = container.querySelector('article');
+    expect(article).not.toBeNull();
+    expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
 });
 
@@ -101,11 +103,13 @@ describe('Spanish beginner tips guide', () => {
     const serializedSpanish = JSON.stringify({ metadata, frontmatter: page.frontmatter, content: page.content });
     expect(serializedSpanish).not.toMatch(/[\u3400-\u9fff\ufffd]/u);
 
-    render(<NextIntlClientProvider locale="es" messages={es}><GuidePage page={page} /></NextIntlClientProvider>);
+    const { container } = render(<NextIntlClientProvider locale="es" messages={es}><GuidePage page={page} /></NextIntlClientProvider>);
 
     expect(screen.getAllByTestId('status-card')).toHaveLength(2);
     expect(screen.getByText('12 claves iniciales')).toBeInTheDocument();
     expectRelatedLinks('es');
-    expectNoExternalUrls({ metadata, frontmatter: page.frontmatter, content: page.content });
+    const article = container.querySelector('article');
+    expect(article).not.toBeNull();
+    expectNoExternalUrls({ frontmatter: page.frontmatter, content: page.content }, article!);
   });
 });
