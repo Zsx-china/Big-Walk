@@ -16,12 +16,6 @@ type LocaleLayoutProps = {
 
 export const metadata = {
   metadataBase: new URL('https://www.bigwalk.blog'),
-  alternates: {
-    languages: {
-      en: '/en',
-      es: '/es',
-    },
-  },
 };
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {

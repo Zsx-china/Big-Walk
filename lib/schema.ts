@@ -1,10 +1,51 @@
 import type { Locale } from '../i18n/config';
+import type { Metadata } from 'next';
 import type { FaqItem, StepItem } from './types';
 
 export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.bigwalk.blog').replace(/\/$/, '');
 
 export function absoluteUrl(pathname: string) {
   return `${SITE_ORIGIN}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
+}
+
+const SOCIAL_IMAGE = absoluteUrl('/images/bigwalk-hero.png');
+
+export function createPageMetadata(
+  locale: Locale,
+  title: string,
+  description: string,
+  slug?: string,
+): Pick<Metadata, 'alternates' | 'openGraph' | 'twitter'> {
+  const suffix = slug && slug !== 'home' ? `/${slug}` : '';
+  const currentUrl = absoluteUrl(`/${locale}${suffix}`);
+  const englishUrl = absoluteUrl(`/en${suffix}`);
+  const spanishUrl = absoluteUrl(`/es${suffix}`);
+
+  return {
+    alternates: {
+      canonical: currentUrl,
+      languages: {
+        en: englishUrl,
+        es: spanishUrl,
+        'x-default': englishUrl,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: currentUrl,
+      siteName: 'Big Walk Wiki',
+      locale: locale === 'es' ? 'es_ES' : 'en_US',
+      type: 'website',
+      images: [{ url: SOCIAL_IMAGE, width: 1280, height: 512, alt: 'Big Walk Wiki guide' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [SOCIAL_IMAGE],
+    },
+  };
 }
 
 export function createWebsiteSchema() {

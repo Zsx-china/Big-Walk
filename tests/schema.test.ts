@@ -16,8 +16,8 @@ describe('structured data schemas', () => {
     expect(schema.itemListElement).toHaveLength(2);
     expect(schema.itemListElement.map((item) => item.position)).toEqual([1, 2]);
     expect(schema.itemListElement.map((item) => item.item)).toEqual([
-      'http://localhost:3000/en',
-      'http://localhost:3000/en/beginner-tips',
+      'https://www.bigwalk.blog/en',
+      'https://www.bigwalk.blog/en/beginner-tips',
     ]);
   });
 });

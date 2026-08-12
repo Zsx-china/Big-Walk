@@ -20,6 +20,23 @@ describe('homepage SEO', () => {
       title: 'Big Walk Wiki — Puzzle Solutions, Codes & Walkthrough',
       description: 'Your complete guide to Big Walk: all puzzle solutions, active codes, walkthrough tips, crossplay info & more. Updated daily by the community.',
       keywords: 'Big Walk, Big Walk codes, Big Walk puzzle solutions, Big Walk walkthrough, Big Walk crossplay, Big Walk guide',
+      alternates: {
+        canonical: 'https://www.bigwalk.blog/en',
+        languages: {
+          en: 'https://www.bigwalk.blog/en',
+          es: 'https://www.bigwalk.blog/es',
+          'x-default': 'https://www.bigwalk.blog/en',
+        },
+      },
+      openGraph: {
+        url: 'https://www.bigwalk.blog/en',
+        siteName: 'Big Walk Wiki',
+        images: [expect.objectContaining({ url: 'https://www.bigwalk.blog/images/bigwalk-hero.png' })],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        images: ['https://www.bigwalk.blog/images/bigwalk-hero.png'],
+      },
     });
   });
 
@@ -33,6 +50,38 @@ describe('homepage SEO', () => {
       description: 'Guías claras y con avisos de spoilers para jugadores de Big Walk.',
     });
     expect(metadata.keywords).toBeUndefined();
+    expect(metadata.alternates).toEqual({
+      canonical: 'https://www.bigwalk.blog/es',
+      languages: {
+        en: 'https://www.bigwalk.blog/en',
+        es: 'https://www.bigwalk.blog/es',
+        'x-default': 'https://www.bigwalk.blog/en',
+      },
+    });
+  });
+
+  it('uses page-specific language alternates and social metadata for guides', async () => {
+    const { generateMetadata } = await import('../app/[locale]/[slug]/page');
+
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ locale: 'es', slug: 'puzzles' }),
+    });
+
+    expect(metadata).toMatchObject({
+      alternates: {
+        canonical: 'https://www.bigwalk.blog/es/puzzles',
+        languages: {
+          en: 'https://www.bigwalk.blog/en/puzzles',
+          es: 'https://www.bigwalk.blog/es/puzzles',
+          'x-default': 'https://www.bigwalk.blog/en/puzzles',
+        },
+      },
+      openGraph: {
+        url: 'https://www.bigwalk.blog/es/puzzles',
+        locale: 'es_ES',
+      },
+      twitter: { card: 'summary_large_image' },
+    });
   });
 
   it('emits WebSite JSON-LD with the configured public site URL', async () => {

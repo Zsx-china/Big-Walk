@@ -1,24 +1,16 @@
 import { MetadataRoute } from 'next'
-
-const BASE_URL = 'https://www.bigwalk.blog'
+import { locales } from '../i18n/config'
+import { SITE_ORIGIN } from '../lib/schema'
+import { pageSlugs } from '../lib/types'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const locales = ['en']
-  const staticPaths = [
-    '',
-    '/beginner-tips',
-    '/codes',
-    '/puzzles',
-    '/crossplay',
-    '/walkthrough',
-  ]
-
   const routes: MetadataRoute.Sitemap = []
 
   for (const locale of locales) {
-    for (const path of staticPaths) {
+    for (const slug of pageSlugs) {
+      const path = slug === 'home' ? '' : `/${slug}`
       routes.push({
-        url: `${BASE_URL}/${locale}${path}`,
+        url: `${SITE_ORIGIN}/${locale}${path}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: path === '' ? 1 : 0.8,

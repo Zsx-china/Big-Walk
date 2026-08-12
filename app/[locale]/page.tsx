@@ -5,7 +5,7 @@ import { HomePage } from '../../components/HomePage';
 import { StructuredData } from '../../components/StructuredData';
 import { isSupportedLocale } from '../../i18n/config';
 import { getPage } from '../../lib/content';
-import { absoluteUrl, createBreadcrumbSchema, createWebsiteSchema } from '../../lib/schema';
+import { createBreadcrumbSchema, createPageMetadata, createWebsiteSchema } from '../../lib/schema';
 
 const ENGLISH_HOME_METADATA = {
   title: 'Big Walk Wiki — Puzzle Solutions, Codes & Walkthrough',
@@ -17,11 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!isSupportedLocale(locale)) return {};
   const { frontmatter } = await getPage(locale, 'home');
+  const pageMetadata = locale === 'en'
+    ? ENGLISH_HOME_METADATA
+    : { title: frontmatter.title, description: frontmatter.description };
   return {
-    ...(locale === 'en'
-      ? ENGLISH_HOME_METADATA
-      : { title: frontmatter.title, description: frontmatter.description }),
-    alternates: { canonical: absoluteUrl(`/${locale}`) },
+    ...pageMetadata,
+    ...createPageMetadata(locale, pageMetadata.title, pageMetadata.description, 'home'),
   };
 }
 
