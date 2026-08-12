@@ -71,7 +71,7 @@ export function createHowToSchema(steps: StepItem[], name: string) {
       '@type': 'HowToStep',
       position: i + 1,
       name: step.title,
-      text: step.text,
+      text: step.description,
     })),
   };
 }
