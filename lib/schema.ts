@@ -62,11 +62,10 @@ export function createFaqSchema(faqItems: FaqItem[], locale: Locale) {
   };
 }
 
-export function createHowToSchema(steps: StepItem[], name: string) {
+export function createHowToSchema(steps: StepItem[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name,
     step: steps.map((step, i) => ({
       '@type': 'HowToStep',
       position: i + 1,
