@@ -68,8 +68,8 @@ describe('English home page', () => {
 
     const expectedStatus = [
       ['Launched', 'Aug 2026'],
-      ['Updated', 'Daily'],
-      ['Metascore', '93'],
+      ['Released', 'Aug 2026'],
+      ['Metacritic', 'Pending confirmation'],
       ['Players', 'Up to 12'],
       ['Cross-Platform', 'Play'],
     ];
@@ -108,7 +108,7 @@ describe('English home page', () => {
       {
         title: 'Crossplay & Multiplayer',
         description: 'Want to play with friends on different platforms? Learn how crossplay works, player limits, split-screen options, and voice chat setup.',
-        href: '/en/game',
+        href: '/en/crossplay',
       },
     ];
 
@@ -156,7 +156,7 @@ describe('English home page', () => {
       ['Genre', 'Co-op Adventure/Puzzle'],
       ['Release Date', 'Aug 4 2026'],
       ['Players', 'Up to 12 Online'],
-      ['Metacritic', '93'],
+      ['Metacritic', 'Pending confirmation'],
     ];
     for (const [label, value] of facts) {
       expect(within(overview!).getByText(label)).toBeInTheDocument();

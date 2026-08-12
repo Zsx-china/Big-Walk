@@ -18,6 +18,14 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
   });
 }
 
+function splitTableRow(line: string): string[] {
+  return line.trim().replace(/^\||\|$/g, '').split('|').map((cell) => cell.trim());
+}
+
+function isTableBlock(lines: string[]): boolean {
+  return lines.length >= 2 && /^\s*\|/.test(lines[0]) && /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[1]);
+}
+
 /**
  * Renders the intentionally small, safe markdown subset used by initial content pages.
  * It never evaluates MDX expressions or imports from content files.
@@ -26,6 +34,12 @@ export function renderMdxContent(content: string, headingIds: string[] = []): Re
   let headingIndex = 0;
 
   return content.split(/\n\s*\n/).filter(Boolean).map((block, index) => {
+    const lines = block.split('\n');
+    if (isTableBlock(lines)) {
+      const headers = splitTableRow(lines[0]);
+      const rows = lines.slice(2).filter((line) => line.trim()).map(splitTableRow);
+      return <div className="overflow-x-auto" key={index}><table className="w-full border-collapse text-left text-sm"><thead><tr>{headers.map((cell, cellIndex) => <th className="border-b-2 border-slate-950 px-3 py-2 font-black" key={`table-head-${index}-${cellIndex}`}>{renderInline(cell, `table-head-${index}-${cellIndex}`)}</th>)}</tr></thead><tbody>{rows.map((row, rowIndex) => <tr key={`table-row-${index}-${rowIndex}`}>{row.map((cell, cellIndex) => <td className="border-b border-slate-300 px-3 py-2 align-top" key={`table-cell-${index}-${rowIndex}-${cellIndex}`}>{renderInline(cell, `table-cell-${index}-${rowIndex}-${cellIndex}`)}</td>)}</tr>)}</tbody></table></div>;
+    }
     const heading = /^(#{1,3})\s+(.+)$/m.exec(block);
     if (heading) {
       const text = heading[2].trim();
