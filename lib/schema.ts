@@ -1,7 +1,7 @@
 import type { Locale } from '../i18n/config';
 import type { FaqItem, StepItem } from './types';
 
-export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.bigwalk.blog').replace(/\/$/, '');
 
 export function absoluteUrl(pathname: string) {
   return `${SITE_ORIGIN}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
@@ -28,42 +28,50 @@ function labelFor(locale: Locale, slug: string) {
 /** Creates a two-level breadcrumb for a locale's home or guide page. */
 export function createBreadcrumbSchema(locale: Locale, slug: string) {
   const pagePath = pathFor(locale, slug);
-  const items = [{ name: labelFor(locale, 'home'), path: pathFor(locale) }];
+  const items = [
+    {
+      name: labelFor(locale, 'home'),
+      path: pathFor(locale),
+    },
+  ];
   if (slug !== 'home') items.push({ name: labelFor(locale, slug), path: pagePath });
-
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
+    itemListElement: items.map((item, idx) => ({
       '@type': 'ListItem',
-      position: index + 1,
+      position: idx + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: `${SITE_ORIGIN}${item.path}`,
     })),
   };
 }
 
-export function createFaqSchema(items: FaqItem[]) {
+export function createFaqSchema(faqItems: FaqItem[], locale: Locale) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: items.map((item) => ({
+    mainEntity: faqItems.map((item) => ({
       '@type': 'Question',
       name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
     })),
   };
 }
 
-export function createHowToSchema(steps: StepItem[]) {
+export function createHowToSchema(steps: StepItem[], name: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    step: steps.map((step, index) => ({
+    name,
+    step: steps.map((step, i) => ({
       '@type': 'HowToStep',
-      position: index + 1,
+      position: i + 1,
       name: step.title,
-      text: step.description,
+      text: step.text,
     })),
   };
 }
