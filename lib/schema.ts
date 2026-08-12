@@ -47,7 +47,7 @@ export function createBreadcrumbSchema(locale: Locale, slug: string) {
   };
 }
 
-export function createFaqSchema(faqItems: FaqItem[], locale: Locale) {
+export function createFaqSchema(faqItems: FaqItem[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
