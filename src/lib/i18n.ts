@@ -39,6 +39,8 @@ const en = {
     lastUpdated: "Last updated",
     updatedDate: "August 13, 2026",
     madeBy: "Made by walkers, for walkers",
+    privacy: "Privacy",
+    terms: "Terms",
   },
   common: {
     home: "Home",

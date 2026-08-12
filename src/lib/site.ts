@@ -28,7 +28,7 @@ export interface SectionMeta {
 export const SITE = {
   name: "Big Walk Wiki",
   tagline: "The Big Walk field guide",
-  url: "https://bigwalk.wiki",
+  url: "https://www.bigwalk.blog",
   description:
     "A premium Big Walk knowledge hub: beginner guides, walkthroughs, database, tools and answers for House House's co-op walk-and-talk adventure.",
 };

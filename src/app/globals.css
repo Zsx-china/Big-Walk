@@ -359,13 +359,13 @@ button {
 }
 
 .btn--primary {
-  background: var(--primary);
+  background: var(--primary-strong);
   color: var(--text-dark);
-  box-shadow: 0 10px 26px -12px rgba(240, 100, 31, 0.65);
+  box-shadow: 0 10px 26px -12px rgba(201, 78, 20, 0.65);
 }
 
 .btn--primary:hover {
-  background: var(--primary-strong);
+  background: var(--primary);
   transform: translateY(-2px);
   box-shadow: 0 16px 32px -12px rgba(240, 100, 31, 0.7);
 }
@@ -438,7 +438,7 @@ button {
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-dark-muted);
+  color: var(--text-dark-muted-2);
   margin-top: 3px;
 }
 
@@ -1161,7 +1161,7 @@ button {
 }
 
 .prose a:not(.heading-link) {
-  color: var(--primary-strong);
+  color: color-mix(in srgb, var(--primary-strong) 85%, black);
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--primary) 45%, transparent);
   text-underline-offset: 3px;
@@ -1288,7 +1288,7 @@ button {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   font-weight: 700;
-  color: var(--callout-color, var(--accent-sky));
+  color: var(--text-light);
   line-height: 1.4;
 }
 
@@ -1781,7 +1781,7 @@ button {
 
 .site-footer__note {
   font-size: 0.8rem;
-  color: rgba(130, 154, 143, 0.7);
+  color: var(--text-dark-muted);
   margin: 0;
   max-width: 40ch;
 }
@@ -1792,11 +1792,10 @@ button {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-dark-muted);
-  opacity: 0.75;
   margin: var(--sp-3) 0 0;
 }
 
-.site-footer__col h4 {
+.site-footer__col-title {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;

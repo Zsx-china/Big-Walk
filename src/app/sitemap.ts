@@ -29,6 +29,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.4,
   });
 
+  for (const slug of ["privacy", "terms"]) {
+    entries.push({
+      url: `${SITE.url}/${slug}`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    });
+  }
+
   for (const article of listArticles()) {
     // The FAQ lives at /faq only — skip the duplicate article route.
     if (article.section === "faq" && article.slug === "faq") continue;

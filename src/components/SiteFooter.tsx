@@ -26,7 +26,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="site-footer__col">
-            <h4>{t.footer.sections}</h4>
+            <h2 className="site-footer__col-title">{t.footer.sections}</h2>
             <ul>
               {SECTIONS.map((s) => (
                 <li key={s.key}>
@@ -40,7 +40,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="site-footer__col">
-            <h4>{t.footer.startHere}</h4>
+            <h2 className="site-footer__col-title">{t.footer.startHere}</h2>
             <ul>
               <li>
                 <Link href="/start-here/what-is-big-walk">What is Big Walk?</Link>
@@ -58,7 +58,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="site-footer__col">
-            <h4>{t.footer.official}</h4>
+            <h2 className="site-footer__col-title">{t.footer.official}</h2>
             <ul>
               {EXTERNAL.map((e) => (
                 <li key={e.href}>
@@ -73,6 +73,11 @@ export default function SiteFooter() {
 
         <div className="site-footer__bottom">
           <span>{t.footer.copyright}</span>
+          <span>
+            <Link href="/privacy">{t.footer.privacy}</Link>
+            {" · "}
+            <Link href="/terms">{t.footer.terms}</Link>
+          </span>
           <span>
             {t.footer.lastUpdated}{" "}
             <time dateTime="2026-08-13">{t.footer.updatedDate}</time>
