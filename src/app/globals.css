@@ -1850,7 +1850,7 @@ html.js .reveal {
   transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
-.reveal.is-visible {
+html.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -1866,7 +1866,7 @@ html.js .reveal {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
   }
