@@ -23,7 +23,7 @@ components may use).
 | Paper | `#F5F2E9` / `#EEEADF` / `#E7E2D5` |
 | Ink / Moss / Line | `#1A211C` / `#5C6E63` / `#DCD6C8` |
 | Sage / Mist | `#829A8F` / `#ADBFB6` |
-| Ember | `#F0641F` / `#C94E14` |
+| Ember | `#F0641F` / `#C94E14` / `#B0430F`（text-on-light）|
 | Fern / Gold / Sky / Violet / Slate | `#3E8A63` / `#D9A441` / `#4F8DB7` / `#7C6FB0` / `#6E86A0` |
 | White | `#FFFFFF` |
 
@@ -35,7 +35,7 @@ components may use).
 | Background | `--bg-light` / `--bg-light-2` / `--bg-light-3` | Paper / Paper-2 / Paper-3 | 正文区、交替区块 |
 | Surface | `--surface-light` | White | 浅底卡片 |
 | Surface | `--surface-dark` / `--surface-dark-2` | Night-2 / Night-3 | 深底卡片、信息卡 |
-| Primary | `--primary` / `--primary-strong` | Ember / Ember-deep | 仅 CTA、路线线、激活态、小面积强调 |
+| Primary | `--primary` / `--primary-strong` / `--primary-text` | Ember / Ember-deep / Ember-text | 仅 CTA、路线线、激活态、小面积强调；浅色面上的小字文本用 `--primary-text` |
 | Accent | `--accent-fern/gold/sky/violet/slate` | 分类色板 | 仅作标记（blaze、chip、分类色） |
 | Text | `--text-dark` / `--text-dark-muted` / `--text-dark-muted-2` | White / Sage / Mist | 深底文字 |
 | Text | `--text-light` / `--text-light-muted` | Ink / Moss | 浅底文字 |

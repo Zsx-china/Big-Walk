@@ -56,6 +56,7 @@
   --color-line: #dcd6c8;
   --color-ember: #f0641f;
   --color-ember-deep: #c94e14;
+  --color-ember-text: #b0430f;
   --color-fern: #3e8a63;
   --color-gold: #d9a441;
   --color-sky: #4f8db7;
@@ -74,6 +75,7 @@
   --surface-dark-2: var(--color-night-3);
   --primary: var(--color-ember);
   --primary-strong: var(--color-ember-deep);
+  --primary-text: var(--color-ember-text);
   --accent-fern: var(--color-fern);
   --accent-gold: var(--color-gold);
   --accent-sky: var(--color-sky);
@@ -297,7 +299,7 @@ button {
 }
 
 .section-head__eyebrow {
-  color: var(--primary-strong);
+  color: var(--primary-text);
   margin-bottom: var(--sp-3);
 }
 
@@ -1536,7 +1538,7 @@ button {
 }
 
 .toc__list a[data-active="true"] {
-  color: var(--primary-strong);
+  color: var(--primary-text);
   background: var(--bg-light-2);
   font-weight: 600;
 }
