@@ -97,10 +97,16 @@ export default function HomePage() {
                   title="Asked, answered"
                   desc="No forums to dig through — just the questions players ask most, answered straight."
                 />
-                <Link href="/faq" className="btn btn--light" style={{ marginTop: "var(--sp-4)" }}>
-                  All questions
-                  <span className="btn__arrow" aria-hidden="true">→</span>
-                </Link>
+                <div style={{ display: "flex", gap: "var(--sp-3)", marginTop: "var(--sp-4)", flexWrap: "wrap" }}>
+                  <Link href="/faq" className="btn btn--light">
+                    All questions
+                    <span className="btn__arrow" aria-hidden="true">→</span>
+                  </Link>
+                  <Link href="/database/systems-join-codes" className="btn btn--light">
+                    Join a walk by code
+                    <span className="btn__arrow" aria-hidden="true">→</span>
+                  </Link>
+                </div>
               </Reveal>
               <Reveal delay={100}>
                 <FAQList items={faqTeaser} />
