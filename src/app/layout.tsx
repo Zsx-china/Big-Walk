@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Schibsted_Grotesk, Space_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { t } from "@/lib/i18n";
@@ -74,12 +75,25 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${schibsted.variable} ${spaceMono.variable}`}>
       <body>
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`}
+            </Script>
+          </>
+        ) : null}
         <a href="#main" className="skip-link">
           {t.common.skipToContent}
         </a>
