@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Terms of Use",
   description:
     "The terms for using Big Walk Wiki — an independent, fan-made knowledge hub not affiliated with House House or Panic.",
+  robots: { index: false, follow: false },
   alternates: { canonical: "/terms" },
   openGraph: {
     title: `Terms of Use · ${SITE.name}`,

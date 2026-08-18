@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How Big Walk Wiki handles data: a fan-made site with no accounts, no analytics and no personal data collection.",
+  robots: { index: false, follow: false },
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: `Privacy Policy · ${SITE.name}`,

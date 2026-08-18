@@ -7,6 +7,7 @@ import { buildBreadcrumbJsonLd } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "About",
   description: ABOUT.description,
+  robots: { index: false, follow: false },
   alternates: { canonical: "/about" },
   openGraph: {
     title: `About · ${SITE.name}`,
