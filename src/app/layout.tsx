@@ -67,6 +67,9 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
+  other: {
+    "google-adsense-account": "ca-pub-4274045427828153",
+  },
 };
 
 export const viewport: Viewport = {
