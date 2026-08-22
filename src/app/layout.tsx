@@ -86,6 +86,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${schibsted.variable} ${spaceMono.variable}`}>
       <body>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4274045427828153"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {GA_ID ? (
           <>
             <Script
