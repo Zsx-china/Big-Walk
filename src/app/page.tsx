@@ -26,6 +26,41 @@ export default function HomePage() {
     <>
       <Hero />
 
+      {/* Quick answers */}
+      <section className="section">
+        <div className="shell">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Straight answers"
+              title="What players look up most"
+              desc="Codes, crossplay, the red bridge, saving, and the towers — the five pages that answer the most-asked questions."
+            />
+            <div style={{ display: "flex", gap: "var(--sp-3)", marginTop: "var(--sp-4)", flexWrap: "wrap" }}>
+              <Link href="/database/systems-join-codes" className="btn btn--light">
+                Join codes
+                <span className="btn__arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link href="/database/systems-crossplay" className="btn btn--light">
+                Crossplay
+                <span className="btn__arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link href="/guides/red-bridge-puzzle" className="btn btn--light">
+                Red bridge
+                <span className="btn__arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link href="/database/systems-save" className="btn btn--light">
+                Save system
+                <span className="btn__arrow" aria-hidden="true">→</span>
+              </Link>
+              <Link href="/database/locations-towers" className="btn btn--light">
+                All towers
+                <span className="btn__arrow" aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* User onboarding */}
       <section className="section">
         <div className="shell">
